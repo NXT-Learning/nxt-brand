@@ -50,6 +50,7 @@ import logo from '@nxt/brand/logos/svg/nxt-assist-primary.svg';
 | Testcenter (subtree i KL Studio) | `--nxt-test` | `#3F9466` |
 | Lexicon (fristående läge) | `--nxt-lexicon` | `#B0822F` |
 | Docs (leveranser) | `--nxt-docs` | `#6B6677` |
+| Publish (publika sidor) | `--nxt-publish` | `#C2603D` |
 
 Accent-scoping för moduler: sätt `--nxt-accent` (och `--nxt-accent-strong`)
 på modulens rot-element, inte på `:root` — då blir Testcenter grönt inne i
@@ -142,7 +143,7 @@ Två avvikelser mot produktlockuparna, båda avsiktliga:
 
 ## Strong-varianter (v1.2.0) — för liten vit text
 
-Fyra modulfärger bär inte liten vit text (se kontrasttabellen nedan). Varje
+Fem modulfärger bär inte liten vit text (se kontrasttabellen nedan). Varje
 sådan modul har därför en **strong-variant**: grundtonen mörkad med bevarad
 nyans via `color-mix(in srgb, grundton 82%, #000)`, utskriven som literal hex
 i tokenfilen så att värdet är mätbart och inte beror på `color-mix`-stöd.
@@ -161,6 +162,7 @@ i tokenfilen så att värdet är mätbart och inte beror på `color-mix`-stöd.
 | `--nxt-assist-strong` | `#277480` | **5,39:1** | `#2F8E9C` | 3,84:1 ✗ | `nxt.assist-strong` |
 | `--nxt-test-strong` | `#347954` | **5,24:1** | `#3F9466` | 3,72:1 ✗ | `nxt.test-strong` |
 | `--nxt-lexicon-strong` | `#906B27` | **4,86:1** | `#B0822F` | 3,45:1 ✗ | `nxt.lexicon-strong` |
+| `--nxt-publish-strong` | `#9F4F32` | **5,77:1** | `#C2603D` | 4,17:1 ✗ | `nxt.publish-strong` |
 
 Samtliga värden är uppmätta med samma räknare som kontrasttabellen nedan
 (WCAG 2.1 relativ luminans), validerad mot facit vit/svart = 21,00,
@@ -168,8 +170,8 @@ vit/`#777777` = 4,48 och vit/`#767676` = 4,54. Nyansen är bevarad: HSL-vinkeln
 skiftar ≤0,4° mellan grundton och strong-variant.
 
 Som textfärg mot papper `#FAF7FB` ligger varianterna på 5,29 / 5,07 / 4,93 /
-4,58 — alla klarar AA, så strong duger även till liten färgad text på papper
-där grundtonen inte gör det.
+4,58 / 5,43 — alla klarar AA, så strong duger även till liten färgad text på
+papper där grundtonen inte gör det.
 
 `--nxt-learning` `#7E5A96`, `--nxt-docs` `#6B6677` (5,54:1) och
 `--nxt-compliance` `#5C6FC0` (4,68:1) bär redan liten vit text och har därför
@@ -209,16 +211,49 @@ generösa. Räknaren är validerad mot facit (vit/svart = 21,00; vit/`#777777` =
 AA-trösklar: **4,5:1** för normal text, **3,0:1** för stor text
 (≥24 px, eller ≥18,66 px bold).
 
-| Yta | Vit text | Som textfärg mot papper `#FAF7FB` | Vit text OK? |
-|---|---|---|---|
-| Violett `#7E5A96` | **5,54:1** | 5,21:1 | Ja |
-| Skiffer `#6B6677` | **5,54:1** | 5,21:1 | Ja |
-| Blå `#5C6FC0` | **4,68:1** | 4,40:1 | Ja (knappt — verifiera states) |
-| Rosa `#C25D86` | **4,04:1** | 3,80:1 | **Nej** — endast stor text |
-| Turkos `#2F8E9C` | **3,84:1** | 3,61:1 | **Nej** — endast stor text |
-| Grön `#3F9466` | **3,72:1** | 3,50:1 | **Nej** — endast stor text |
-| Bärnsten `#B0822F` | **3,45:1** | 3,25:1 | **Nej** — se regeln nedan |
-| Bläck `#211B27` | — | **15,80:1** | (referens) |
+**Två riktningar, inte en.** Tabellen mätte tidigare bara vit text på ytan och
+färgen som textfärg mot papper. Den tredje frågan — *går bläck att sätta på
+ytan?* — saknades, och det dolde ett mönster: tre av åtta färger klarar
+**ingendera**. Kolumnen finns nu.
+
+| Yta | Vit text | Bläck på ytan | Som textfärg mot papper `#FAF7FB` | Liten text direkt på ytan |
+|---|---|---|---|---|
+| Violett `#7E5A96` | **5,54:1** | 3,03:1 | 5,21:1 | Vit |
+| Skiffer `#6B6677` | **5,54:1** | 3,03:1 | 5,21:1 | Vit |
+| Blå `#5C6FC0` | **4,68:1** | 3,59:1 | 4,40:1 | Vit (knappt — verifiera states) |
+| Terrakotta `#C2603D` | 4,17:1 | 4,03:1 | 3,93:1 | **Ingen** — se nedan |
+| Rosa `#C25D86` | 4,04:1 | 4,16:1 | 3,80:1 | **Ingen** — se nedan |
+| Turkos `#2F8E9C` | 3,84:1 | 4,37:1 | 3,61:1 | **Ingen** — se nedan |
+| Grön `#3F9466` | 3,72:1 | **4,51:1** | 3,50:1 | Bläck |
+| Bärnsten `#B0822F` | 3,45:1 | **4,86:1** | 3,25:1 | Bläck |
+| Bläck `#211B27` | — | — | **15,80:1** | (referens) |
+
+### De tre klasserna
+
+Räknat över alla åtta modulfärger faller de i exakt tre grupper. Vilken grupp en
+färg tillhör avgör vad som får ligga på ytan — det är inte en smakfråga per
+komponent.
+
+| Klass | Färger | Vad ytan bär i liten grad |
+|---|---|---|
+| Vit klarar, bläck inte | Violett, Skiffer, Blå (3) | vit text |
+| Bläck klarar, vit inte | Grön, Bärnsten (2) | bläcktext |
+| **Ingendera klarar** | **Rosa, Turkos, Terrakotta (3)** | **inget — strong krävs** |
+
+**Den tredje klassen är den som behöver en regel.** För rosa, turkos och
+terrakotta finns ingen textfärg som klarar AA direkt på grundtonen: vit ligger
+på 4,04 / 3,84 / 4,17 och bläck på 4,16 / 4,37 / 4,03. Grundtonen bär alltså
+**bara stor text** (≥24 px, eller ≥18,66 px bold), i vilken av de två färgerna
+som helst — och all liten text kräver att ytan byts till strong-varianten.
+
+Rosa och turkos har haft det förhållandet sedan v1.0 och strong-varianter sedan
+v1.2.0, men motiveringen som skrevs då gällde bara vit text. Att bläck faller
+på samma två färger stod ingenstans, och det är därför det ser ut som en
+egenskap hos terrakotta när det är en egenskap hos klassen.
+
+Praktiskt: en knapp, ett chip, en badge eller en aktiv menyrad på någon av de
+tre ska ha `background: var(--nxt-<modul>-strong)` — inte grundtonen med annan
+textfärg, för den vägen finns inte.
 
 ### Ändrat i v1.1.2 (uppmätt)
 
@@ -239,9 +274,18 @@ AA-trösklar: **4,5:1** för normal text, **3,0:1** för stor text
   se LEXICON-modulmarkören i KL Studio (`LexiconModuleMarker.tsx`), som sätter
   modulnamnet i bläck och låter bärnstenen bäras av en punkt intill.
   *Bläck på bärnsten är däremot godkänt* (4,86:1) om ytan behöver vara bärnsten.
-- **Bärnsten, grön, turkos och rosa underkänns alla för normal text i vitt.**
-  Alla fyra ligger över 3,0:1 och klarar därmed stor text (≥24 px / ≥18,66 px
-  bold), men under 4,5:1 — vit brödtext är alltså uteslutet på samtliga fyra.
+- **Bärnsten, grön, turkos, rosa och terrakotta underkänns alla för normal text
+  i vitt.** Alla fem ligger över 3,0:1 och klarar därmed stor text (≥24 px /
+  ≥18,66 px bold), men under 4,5:1 — vit brödtext är alltså uteslutet på
+  samtliga fem.
+- **Terrakotta ligger nära felfärgen och det är en användningsregel, inte ett
+  fel.** `#C2603D` har nyans 16°, `--nxt-error` `#C0392B` har 6°, och avståndet
+  är 18 CIE-Lab-steg — mindre än mellan violett och blå (21), som är familjens
+  hittills tightaste modulpar. Ensam på sin egen yta är den entydig. Det som
+  kräver omsorg är varje vy där modulfärger och statusfärger ligger i SAMMA
+  serie: Billing och Analytics målar produktrader i modulfärg, och där måste
+  skillnaden bäras av mer än färgen. Det är samma krav WCAG 1.4.1 redan ställer
+  på status — färg **+ ikon + text** — nu av ett andra skäl.
 - Behövs liten **vit** text på en modulfärgad yta: använd modulens
   **strong-variant** (`--nxt-studio-strong` m.fl., se avsnittet ovan). Sedan
   v1.2.0 finns de som tokens i paketet — mörka inte längre på egen hand i
@@ -269,11 +313,34 @@ UI-steg, och har därför egna värden i stället för att alias:a in i registre
 
 ## Logotypfiler
 
-`logos/svg/` (27) och `logos/png/` (25, transparent 3×). Tre hanteringar
+`logos/svg/` (30) och `logos/png/` (28, transparent 3×). Tre hanteringar
 per produkt: `-primary` (ljus botten), `-reverse` (på modulfärgad yta),
 `-black` (1-färg). Fristående märke: `nxt-mark-violet/white/black` +
 `nxt-mark-violet-sig` (e-postsignatur, endast PNG). Koncernlockup:
 `nxt-full-primary/reverse/black` (endast SVG i v1.3.0 — PNG-varianter saknas).
+
+**Lockupbredden räknas, den ritas inte.** viewBox-höjden är 156, märket ligger
+på `translate(18,18)`, avdelaren på x=346 och namnet börjar på x=376 i Sora 600
+om 100 px. Bredden är `376 + namnets bredd + 18`, där namnets bredd är summan
+av glyfernas advance ur `fonts/sora-latin-600-normal.woff2`. Räkningen
+återskapar de sju befintliga lockuparna på under en enhet (Docs 656, Studio
+739, Learning 842, Compliance 1019) och gav Publish `776`. Gissa inte en ny
+bredd — mät den ur typsnittsfilen, annars glider frizonen.
+
+**PNG:erna renderas ur SVG:n i 3×** (2328×468 för Publish, `3 × 776 × 156`),
+med Chrome headless och typsnittet inbäddat. Metoden verifierades genom att
+återskapa `nxt-learning-primary.png` ur sin egen SVG före användning: 0,23 % av
+pixlarna skilde sig med mer än 12/255, alltså kantutjämning och ingenting
+annat.
+
+### Favicon
+
+`@nxt/brand/favicon.svg` → `nxt-mark-violet.svg`. **Publish serverar samma fil
+som alla andra moduler.** Det följer av ytregeln: märket färgas aldrig om i
+accentfärg, så en modulfärgad favicon kan inte finnas. Behövs ändå en egen är
+det enda formen tillåter det VITA märket på en modulfärgad platta — samma grepp
+som `-reverse`-lockupen — och den ska då heta `./favicon-publish.svg` och läggas
+**bredvid** `./favicon.svg`, inte ersätta den.
 
 ## Versionering
 

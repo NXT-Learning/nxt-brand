@@ -83,6 +83,16 @@
   --nxt-test:       #3F9466;    /* NXT Test — prov/examinering */
   --nxt-lexicon:    #B0822F;    /* NXT Lexicon — kunskapsbank/ordlista */
   --nxt-docs:       #6B6677;    /* NXT Docs — dokumentation som tjänst */
+  --nxt-publish:    #C2603D;    /* NXT Publish — publik dokumentation/kunskapscenter */
+  /* ^ Nyans 16°, den enda öppna vinkeln mellan Lexicons 39° och Studios 336°.
+       LÄS DEN HÄR RADEN INNAN DU ANVÄNDER DEN I ETT DIAGRAM: --nxt-error är
+       #C0392B, nyans 6°, och ligger 18 CIE-Lab-steg härifrån — familjens
+       tightaste modulpar (violett/blå) ligger på 21. Publish och fel är alltså
+       närmare varandra än två moduler någonsin varit. På egen yta spelar det
+       ingen roll; i en serie där modulfärger OCH statusfärger förekommer
+       samtidigt (Billing, Analytics) måste de skiljas åt av något mer än
+       färgen. Samma regel som WCAG 1.4.1 redan kräver av status: färg + ikon
+       + text, aldrig färg ensam. */
 
   /* ---- Strong-varianter (v1.2.0) ----
      Mörkad grundton med bevarad nyans: color-mix(in srgb, grundton 82%, #000).
@@ -90,11 +100,40 @@
      color-mix-stöd. Enda syftet: bära LITEN VIT TEXT (≥4,5:1 mot vit).
      Regel: yta och stora grader = grundton, interaktiva små element = strong.
      Uppmätta kontraster mot vit (WCAG 2.1) inom parentes.
-     Violett, skiffer och blå klarar redan 4,5:1 och har därför ingen variant. */
+     Violett, skiffer och blå klarar redan 4,5:1 och har därför ingen variant.
+
+     ── TRE KLASSER, RÄKNADE ÖVER ALLA ÅTTA MODULFÄRGER ──────────────────
+     Frågan är inte bara "bär ytan vit text?" utan också "bär den bläck?".
+     Med båda mätta faller familjen i exakt tre grupper:
+
+       vit klarar, bläck inte    violett 5,54/3,03 · skiffer 5,54/3,03
+                                 · blå 4,68/3,59              -> vit text
+       bläck klarar, vit inte    grön 3,72/4,51 · bärnsten 3,45/4,86
+                                                              -> bläcktext
+       INGENDERA KLARAR          rosa 4,04/4,16 · turkos 3,84/4,37
+                                 · terrakotta 4,17/4,03       -> STRONG KRÄVS
+
+     Den tredje klassen är skälet till att varianterna finns. På de tre
+     färgerna finns INGEN textfärg som klarar AA direkt på grundtonen —
+     grundtonen bär bara stor text (>=24 px, eller >=18,66 px bold), i
+     vilken färg som helst, och all liten text kräver att YTAN byts.
+
+     Rosa och turkos har varit i den klassen sedan v1.0, men motiveringen
+     som skrevs 2026-07 gällde bara vit text. Att bläck faller på samma två
+     stod ingenstans, vilket gjorde att det såg ut som en egenskap hos
+     terrakotta (v1.7.0) när det är en egenskap hos klassen. */
   --nxt-studio-strong:  #9F4C6E;  /* 5,63:1 — ur #C25D86 (4,04:1) */
   --nxt-assist-strong:  #277480;  /* 5,39:1 — ur #2F8E9C (3,84:1) */
   --nxt-test-strong:    #347954;  /* 5,24:1 — ur #3F9466 (3,72:1) */
   --nxt-lexicon-strong: #906B27;  /* 4,86:1 — ur #B0822F (3,45:1) */
+  --nxt-publish-strong: #9F4F32;  /* 5,77:1 — ur #C2603D (4,17:1) */
+  /* ^ På Publish klarar VARKEN vit text (4,17) ELLER bläck (4,03) 4,5:1 mot
+       grundtonen. Den är därmed tredje färgen i det läget — rosa (4,04/4,16)
+       och turkos (3,84/4,37) är de andra två — och paketet har redan skrivit
+       ut slutsatsen för rosa: mörkare yta är enda vägen. Grundtonen bär alltså
+       stor text i båda färgerna och liten text i ingen. Strong-varianten är
+       inte en finess här utan förutsättningen för varje knapp, chip och aktiv
+       menyrad i modulen. */
 
   /* ---- Semantisk status (beslut 2026-07-10, ur brand book-paletten) ---- */
   --nxt-error:   #C0392B;
